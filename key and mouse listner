@@ -1,0 +1,241 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+class MainFrame extends Frame {
+ MainFrame() {
+super("Main Frame");
+ setLayout(new BorderLayout());
+ // for spacing
+ Label emptyLabel = new Label("");
+ add(emptyLabel, BorderLayout.NORTH);
+ Button registerButton = new Button("Register");
+ registerButton.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent e) {
+ frame f = new frame("Registration", null);
+ f.setVisible(true);
+ f.setSize(400, 500);
+ }
+ });
+ // panel for left alignment of the logo and the button
+ Panel logoAndButtonPanel = new Panel(new
+FlowLayout(FlowLayout.LEFT));
+ // Load the logo image
+ ImageIcon icon = new ImageIcon("logo.jpg"); // Adjust the
+path to your image
+ // image to the prefer size
+ Image image = icon.getImage();
+ Image scaledImage = image.getScaledInstance(50, 50,
+Image.SCALE_SMOOTH); // Adjust the size as needed
+ ImageIcon scaledIcon = new ImageIcon(scaledImage);
+ // Create JLabel with the scaled image
+ JLabel imageLabel = new JLabel(scaledIcon);
+ imageLabel.addMouseListener(new MouseAdapter() {
+
+ public void mousePressed(MouseEvent e) {
+ JOptionPane.showMessageDialog(null, "Welcome to
+airTrip!! Click register for the form..");
+ }
+ });
+ logoAndButtonPanel.add(imageLabel);
+ logoAndButtonPanel.add(registerButton);
+ // panel to the center of the frame
+ add(logoAndButtonPanel, BorderLayout.CENTER);
+ addWindowListener(new WindowAdapter() {
+ public void windowClosing(WindowEvent w) {
+ dispose();
+ }
+ });
+
+ }
+}
+class frame extends Frame {
+ frame(String title, Frame f) {
+ super("Form_frames");
+ setLayout(null);
+
+ // Panel for airTrip label and logo
+ Panel panel = new Panel();
+ panel.setBounds(50, 50, 250, 50); // Adjust the size and
+position as needed
+ panel.setBackground(Color.BLACK); // Set background color
+ panel.setLayout(new BorderLayout()); // Set layout manager
+
+ Label l4 = new Label("airTrip", Label.CENTER);
+ l4.setFont(new Font("Arial", Font.BOLD, 40));
+ l4.setForeground(Color.WHITE); // Set text color to white
+ panel.add(l4, BorderLayout.CENTER);
+
+ // Load the logo image
+ ImageIcon logoIcon = new ImageIcon("logo.jpg"); // Adjust the
+file path as needed
+ Image image = logoIcon.getImage();
+ Image scaledImage = image.getScaledInstance(50, 50,
+Image.SCALE_SMOOTH); // Adjust the size as needed
+ ImageIcon scaledLogoIcon = new ImageIcon(scaledImage);
+ JLabel logoLabel = new JLabel(scaledLogoIcon);
+ panel.add(logoLabel, BorderLayout.WEST);
+
+ // Add mouse listener to the logoLabel for zoom effect
+ logoLabel.addMouseListener(new MouseAdapter() {
+ public void mouseEntered(MouseEvent e) {
+ // Scale the image to zoom in when mouse enters
+ int newWidth = (int) (scaledLogoIcon.getIconWidth() *
+1.2);
+ int newHeight = (int) (scaledLogoIcon.getIconHeight() *
+1.2);
+ Image zoomedImage =
+image.getScaledInstance(newWidth, newHeight,
+Image.SCALE_SMOOTH);
+ ImageIcon zoomedIcon = new ImageIcon(zoomedImage);
+ logoLabel.setIcon(zoomedIcon); // Set the new scaled
+image
+ }
+
+ public void mouseExited(MouseEvent e) {
+ // Restore the image to original size when mouse exits
+ logoLabel.setIcon(scaledLogoIcon); // Set the original
+image
+ }
+ });
+
+ add(panel);
+
+ // Empty label for spacing
+ Label emptyLabel = new Label("");
+ emptyLabel.setBounds(50, 100, 250, 10); // Adjust the size
+and position to create space
+ add(emptyLabel);
+
+ Label l5 = new Label("Personal Info", Label.LEFT);
+ l5.setBounds(100, 120, 200, 30); // Adjust the position
+ Font font = new Font("Arial", Font.BOLD, 20);
+ l5.setFont(font);
+ add(l5);
+ Label b = new Label("Name", Label.LEFT);
+ b.setBounds(50, 170, 60, 20);
+ add(b);
+ TextField tf = new TextField(30);
+ tf.setBounds(120, 170, 200, 20);
+ add(tf);
+ Label l1 = new Label("Age", Label.LEFT);
+ l1.setBounds(50, 200, 70, 20);
+ add(l1);
+ TextField tf1 = new TextField(30);
+ tf1.setBounds(120, 200, 200, 20);
+ add(tf1);
+ // Gender label and radio buttons
+ Label l6 = new Label("Gender:", Label.LEFT);
+ l6.setBounds(50, 230, 70, 20);
+ add(l6);
+ CheckboxGroup genderGroup = new CheckboxGroup();
+ Checkbox femaleCheckbox = new Checkbox("Female",
+genderGroup, false);
+ femaleCheckbox.setBounds(120, 230, 70, 20);
+ add(femaleCheckbox);
+ Checkbox maleCheckbox = new Checkbox("Male",
+genderGroup, false);
+ maleCheckbox.setBounds(190, 230, 70, 20);
+ add(maleCheckbox);
+ Checkbox othersCheckbox = new Checkbox("Others",
+genderGroup, false);
+ othersCheckbox.setBounds(260, 230, 70, 20);
+ add(othersCheckbox);
+ Label l2 = new Label("Email", Label.LEFT);
+ l2.setBounds(50, 260, 70, 20);
+ add(l2);
+ TextField tf2 = new TextField(30);
+ tf2.setBounds(120, 260, 200, 20);
+ add(tf2);
+ Label l3 = new Label("Aadhar id", Label.LEFT);
+ l3.setBounds(50, 290, 70, 20);
+ add(l3);
+ TextField tf3 = new TextField(30);
+ tf3.setBounds(120, 290, 200, 20);
+ add(tf3);
+ // Label for flight details
+ Label l7 = new Label("Flight Details", Label.LEFT);
+ l7.setBounds(100, 320, 200, 30); // Adjust the position
+ font = new Font("Arial", Font.BOLD, 20);
+ l7.setFont(font);
+ add(l7);
+ // Label for trip type
+ Label tripTypeLabel = new Label("Trip Type:", Label.LEFT);
+ tripTypeLabel.setBounds(50, 350, 70, 20);
+ add(tripTypeLabel);
+ // Radio buttons for trip type
+ CheckboxGroup tripTypeGroup = new CheckboxGroup();
+ Checkbox oneWayCheckbox = new Checkbox("One Way",
+tripTypeGroup, false);
+ oneWayCheckbox.setBounds(120, 350, 70, 20);
+ add(oneWayCheckbox);
+ Checkbox twoWayCheckbox = new Checkbox("Two Way",
+tripTypeGroup, false);
+ twoWayCheckbox.setBounds(190, 350, 70, 20);
+ add(twoWayCheckbox);
+ // Label and dropdown for 'From'
+ Label fromLabel = new Label("From:", Label.LEFT);
+ fromLabel.setBounds(50, 380, 70, 20);
+ add(fromLabel);
+ Choice fromChoice = new Choice();
+ fromChoice.setBounds(120, 380, 200, 20);
+ fromChoice.add("Place 1");
+ fromChoice.add("Place 2");
+ fromChoice.add("Place 3");
+ // Add more places as needed
+ add(fromChoice);
+ // Label and dropdown for 'To'
+ Label toLabel = new Label("To:", Label.LEFT);
+ toLabel.setBounds(50, 410, 70, 20);
+ add(toLabel);
+ Choice toChoice = new Choice();
+ toChoice.setBounds(120, 410, 200, 20);
+ toChoice.add("Place A");
+ toChoice.add("Place B");
+ toChoice.add("Place C");
+ // Add more places as needed
+ add(toChoice);
+ Button bt = new Button("Save");
+ bt.setBounds(100, 440, 70, 30);
+ add(bt);
+ Button bt1 = new Button("View");
+ bt1.setBounds(190, 440, 70, 30);
+ add(bt1);
+ addWindowListener(new WindowAdapter() {
+ public void windowClosing(WindowEvent w) {
+ dispose();
+ }
+ });
+// Adding KeyListener to the frame
+ addKeyListener(new KeyAdapter() {
+ public void keyPressed(KeyEvent e) {
+ if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+ JOptionPane.showMessageDialog(frame.this, "Use
+cursor to go next");
+ }
+ }
+ });
+// Adding KeyListener to the frame
+ addKeyListener(new KeyAdapter() {
+ public void keyPressed(KeyEvent e) {
+ if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+ JOptionPane.showMessageDialog(frame.this,
+"Registered successfully");
+ }
+ }
+ public void keyTyped(KeyEvent e) {
+ if (e.getKeyChar() == 's') {
+ JOptionPane.showMessageDialog(frame.this,
+"Registered successfully");
+ }
+ }
+ });
+ setFocusable(true); // To receive key events
+ }
+}
+public class exno91 {
+ public static void main(String args[]) {
+ MainFrame mainFrame = new MainFrame();
+ mainFrame.setVisible(true);
+ mainFrame.setSize(300, 200);
+ }
+}
